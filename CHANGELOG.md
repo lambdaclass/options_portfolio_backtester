@@ -46,8 +46,12 @@ anchored on the commit hash that introduced the change.
   the per-rebalance interpretation of ``options_budget_pct`` being
   treated as if it were annual (3.3% per month is ~40%/yr of
   premium spend, not 3.3%/yr). Documented in
-  ``docs/PRE_FIX_REGIME_SWEEP.md`` and ``docs/POST_FIX_REGIME_SWEEP.md``.
-  ``tests/test_known_bugs.py`` removed.
+  Single authoritative reference for the corrected reproduction is
+  now ``docs/SPITZNAGEL_RECONSTRUCTION.md``; the earlier
+  ``docs/PRE_FIX_REGIME_SWEEP.md``, ``docs/POST_FIX_REGIME_SWEEP.md``,
+  and ``docs/POST_FIX_ANNUAL_SWEEP.md`` were written against engine
+  states with one or more of the five bug classes still active and
+  have been removed. ``tests/test_known_bugs.py`` removed.
 
 - **Option intrinsic value now uses the unadjusted close (valuation
   bug B).** When a contract is not quoted on a given day (expired or
@@ -131,8 +135,8 @@ anchored on the commit hash that introduced the change.
   semantics, which is what most of the tail-hedge literature
   (including Spitznagel's *Safe Haven*) actually describes. The
   README's first-backtest example and ``BacktestEngine.use_external_budget``
-  already use annual semantics. ``docs/POST_FIX_ANNUAL_SWEEP.md``
-  reports the regime sweep at true-annual semantics for comparison.
+  already use annual semantics. The corrected, consolidated reference
+  is ``docs/SPITZNAGEL_RECONSTRUCTION.md``.
 
 ### API changes
 - `BacktestEngine.use_external_budget(annual_pct)` and
