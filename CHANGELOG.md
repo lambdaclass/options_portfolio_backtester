@@ -102,6 +102,21 @@ anchored on the commit hash that introduced the change.
   never passed through from `BacktestEngine`, so it was dead. Exposed as
   `BacktestEngine.rebalance_stocks_on_exit` (default ``False``; only
   meaningful with `check_exits_daily=True`).
+- **Filter columns ``underlying_last``, ``impliedvol``, and
+  ``open_interest`` are no longer silently dropped before Rust
+  dispatch.** ``_run_rust`` and ``_run_rust_multi`` previously dropped
+  these three options-dataframe columns "to reduce Arrow conversion
+  cost." That broke every leg filter referencing them: strike-based
+  OTM filters (``schema.strike <= schema.underlying_last * X``)
+  silently matched zero rows so no entries fired at all; IV- and
+  OI-based filters raised ``RuntimeError: unable to find column …``.
+  Silently broke every preset whose depth filter expressed OTM as a
+  multiple of spot — ``near_atm_put_protection``, ``Strangle``,
+  ``IronCondor``, ``CoveredCall``, ``CashSecuredPut``, ``Collar``,
+  ``Butterfly``. The ``deep_otm_put`` preset was not affected because
+  it filters by delta. The drop set is now ``{"last", "optionalias"}``
+  (only columns that no filter or selector inspects). On the 17-year
+  SPY parquet, conversion cost is unchanged within noise.
 
 ### Invariants / defense-in-depth
 - **Optional runtime self-checks (`assert_invariants`).** New
