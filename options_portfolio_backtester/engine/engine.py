@@ -464,11 +464,13 @@ class BacktestEngine:
         exp_col = self._options_schema["expiration"]
 
         # Drop columns Rust never accesses to reduce Arrow conversion cost.
-        _drop_cols = {"underlying_last", "last", "optionalias", "impliedvol"}
-        # Also drop openinterest unless MaxOpenInterest selector is in use
-        if not (hasattr(self.signal_selector, '__class__')
-                and self.signal_selector.__class__.__name__ == 'MaxOpenInterest'):
-            _drop_cols.add("openinterest")
+        # Keep underlying_last, impliedvol, openinterest — they can appear in
+        # leg filters (strike <= underlying_last * X, impliedvol-based entries,
+        # OI-based selectors). Dropping them silently broke any strategy that
+        # referenced them with a "column not found" Rust error rather than a
+        # clear API error. The only safe drops are columns that no filter or
+        # selector ever inspects.
+        _drop_cols = {"last", "optionalias"}
         opts_df = self._options_data._data
         to_drop = [c for c in _drop_cols if c in opts_df.columns]
         opts_src = opts_df.drop(columns=to_drop) if to_drop else opts_df
@@ -629,8 +631,10 @@ class BacktestEngine:
         opts_date_col = self._options_schema["date"]
         stocks_date_col = self._stocks_schema["date"]
 
-        # Drop unused columns for Arrow conversion speed
-        _drop_cols = {"underlying_last", "last", "optionalias", "impliedvol"}
+        # Drop unused columns for Arrow conversion speed. Keep underlying_last,
+        # impliedvol, openinterest — see comment in _run_rust for why dropping
+        # them silently broke filter columns and selectors.
+        _drop_cols = {"last", "optionalias"}
         opts_df = self._options_data._data
         to_drop = [c for c in _drop_cols if c in opts_df.columns]
         opts_src = opts_df.drop(columns=to_drop) if to_drop else opts_df
