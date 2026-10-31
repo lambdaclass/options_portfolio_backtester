@@ -1,5 +1,12 @@
 # Robustness review: what survives (Oct 2026)
 
+> **Update pending (Oct 2026).** The result CSVs in this directory were
+> regenerated with Friday-dated expirations (`normalize_expirations`; older
+> SPX monthlies are dated on Saturday, which shifted every DTE rule by a
+> trading day). The tables below still show the earlier numbers; the exit-30
+> rows in particular are overstated (2%: −0.09 → −0.44pp/yr, GFC −42% →
+> −47%). Text to be updated from the new CSVs.
+
 This is the current reference for the SPX tail-hedge study. It supersedes the
 headline numbers in the other files in this directory and in
 [`docs/SPITZNAGEL_RECONSTRUCTION.md`](../../../docs/SPITZNAGEL_RECONSTRUCTION.md)
