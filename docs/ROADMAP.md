@@ -4,6 +4,32 @@ What has landed, what is in flight, and what is still missing. Reporting and
 tearsheet work has its own plan in [`REPORTING_ROADMAP.md`](REPORTING_ROADMAP.md).
 Pitfalls and the APIs that guard against them: [`METHODOLOGY.md`](METHODOLOGY.md).
 
+## Pull requests
+
+Open:
+
+| PR | What | Status |
+|---|---|---|
+| [#108](https://github.com/lambdaclass/options_portfolio_backtester/pull/108) | Bump `quinn-proto` 0.11.14 → 0.11.16 (Rust, Dependabot) | open, needs review |
+| [#109](https://github.com/lambdaclass/options_portfolio_backtester/pull/109) | Bump `xxhash-rust` 0.8.15 → 0.8.19 (Rust, Dependabot) | open, needs review |
+| [#110](https://github.com/lambdaclass/options_portfolio_backtester/pull/110) | Bump `rustls` 0.23.36 → 0.23.46 (Rust, Dependabot) | open, needs review |
+
+Not opened yet -- one PR each for the "In flight" and "Missing" items
+below (1–8); this table gets their numbers when they open.
+
+Recently merged (the engine-correctness work before October):
+
+| PR | What |
+|---|---|
+| [#102](https://github.com/lambdaclass/options_portfolio_backtester/pull/102) | Intrinsic valuation from unadjusted spot (bug class B); `check_exits_daily`; invariants |
+| [#103](https://github.com/lambdaclass/options_portfolio_backtester/pull/103) | Stop dropping filter columns before Rust dispatch |
+| [#104](https://github.com/lambdaclass/options_portfolio_backtester/pull/104) | Research docs consolidated into `SPITZNAGEL_RECONSTRUCTION.md` |
+| [#105](https://github.com/lambdaclass/options_portfolio_backtester/pull/105) | Seal `BacktestEngine` against unknown config; regression-guard oracles |
+| [#106](https://github.com/lambdaclass/options_portfolio_backtester/pull/106) | Independent exit-price envelope oracle; reproduction window clamp |
+| [#107](https://github.com/lambdaclass/options_portfolio_backtester/pull/107) | `fetch_data`: keep parquet outputs in sync with date alignment |
+
+The October work below was pushed to `master` directly, without PRs.
+
 ## Landed on `master` (Oct 2026)
 
 Engine correctness, found by a library audit and an independent pandas
