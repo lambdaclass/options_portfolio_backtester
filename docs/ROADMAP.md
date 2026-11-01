@@ -13,9 +13,17 @@ Open:
 | [#108](https://github.com/lambdaclass/options_portfolio_backtester/pull/108) | Bump `quinn-proto` 0.11.14 → 0.11.16 (Rust, Dependabot) | open, needs review |
 | [#109](https://github.com/lambdaclass/options_portfolio_backtester/pull/109) | Bump `xxhash-rust` 0.8.15 → 0.8.19 (Rust, Dependabot) | open, needs review |
 | [#110](https://github.com/lambdaclass/options_portfolio_backtester/pull/110) | Bump `rustls` 0.23.36 → 0.23.46 (Rust, Dependabot) | open, needs review |
+| [#111](https://github.com/lambdaclass/options_portfolio_backtester/pull/111) | 1. Tail-hedge review rewrite | draft, work in progress |
+| [#112](https://github.com/lambdaclass/options_portfolio_backtester/pull/112) | 2. Parameter landscape run | draft, work in progress |
+| [#113](https://github.com/lambdaclass/options_portfolio_backtester/pull/113) | 3. Leg relationships for spreads | draft, work in progress |
+| [#114](https://github.com/lambdaclass/options_portfolio_backtester/pull/114) | 4. Short-option margin | draft, work in progress |
+| [#115](https://github.com/lambdaclass/options_portfolio_backtester/pull/115) | 5. Native financing | draft, work in progress |
+| [#116](https://github.com/lambdaclass/options_portfolio_backtester/pull/116) | 6. Risk constraint semantics | draft, work in progress |
+| [#117](https://github.com/lambdaclass/options_portfolio_backtester/pull/117) | 7. Smaller gaps | draft, work in progress |
+| [#118](https://github.com/lambdaclass/options_portfolio_backtester/pull/118) | 8. Article errata | draft, work in progress |
 
-Not opened yet -- one PR each for the "In flight" and "Missing" items
-below (1–8); this table gets their numbers when they open.
+Each draft PR (#111–#118) tracks one item under "In flight" / "Missing"
+below and lists what is left as a checklist.
 
 Recently merged (the engine-correctness work before October):
 
@@ -66,11 +74,11 @@ T-bills at equal risk; its robust benefit is protection in fast crashes.
 
 ## In flight
 
-1. **Tail-hedge review rewrite** — the result CSVs were regenerated on
+1. **Tail-hedge review rewrite** ([#111](https://github.com/lambdaclass/options_portfolio_backtester/pull/111)) — the result CSVs were regenerated on
    Friday-dated expirations (`59e7341`); `findings/ROBUSTNESS_REVIEW.md` and
    the research README still quote the pre-fix tables (banner in place).
    Rewrite every number from the new CSVs.
-2. **Parameter landscape** — `experiments/parameter_landscape.py` is written
+2. **Parameter landscape** ([#112](https://github.com/lambdaclass/options_portfolio_backtester/pull/112)) — `experiments/parameter_landscape.py` is written
    (pre-registered OTM × DTE × exit × budget, four calendars, exit
    neighbours, split halves, equal-risk scoring) but not run yet.
 
@@ -78,21 +86,21 @@ T-bills at equal risk; its robust benefit is protection in fast crashes.
 
 Library (from the audit, by impact):
 
-3. **Leg relationships for spreads** — legs are filtered independently and
+3. **Leg relationships for spreads** ([#113](https://github.com/lambdaclass/options_portfolio_backtester/pull/113)) — legs are filtered independently and
    paired by row; nothing enforces the same expiration or a strike/delta
    offset. `iron_condor` / `butterfly` build nonsense (buying and selling
    the same contract) and several README-listed presets do not exist. Needs
    per-leg constraints relative to leg 1 and quantity ratios.
-4. **Short-option margin** — shorts are sized by premium received with no
+4. **Short-option margin** ([#114](https://github.com/lambdaclass/options_portfolio_backtester/pull/114)) — shorts are sized by premium received with no
    margin, and the default target-value budget grows them every rebalance
    (5% allocation → ~$6M notional on $1M). Needs cash-secured / Reg-T
    sizing, margin calls, and excluding the short liability from the budget.
-5. **Native financing** — `apply_financing` is a post-hoc NAV adjustment;
+5. **Native financing** ([#115](https://github.com/lambdaclass/options_portfolio_backtester/pull/115)) — `apply_financing` is a post-hoc NAV adjustment;
    interest does not affect sizing inside the run.
-6. **Risk constraints** — `MaxDelta` / `MaxVega` sum per-share greeks with
+6. **Risk constraints** ([#116](https://github.com/lambdaclass/options_portfolio_backtester/pull/116)) — `MaxDelta` / `MaxVega` sum per-share greeks with
    no ×100 multiplier and ignore the stock leg; they reject instead of
    shrinking a trade; `MaxDrawdown` updates its peak only on rebalance days.
-7. **Smaller gaps** — `events_dataframe()` is never populated by the Rust
+7. **Smaller gaps** ([#117](https://github.com/lambdaclass/options_portfolio_backtester/pull/117)) — `events_dataframe()` is never populated by the Rust
    loop; multi-strategy runs ignore `roll_exit_proceeds_pct` and
    strategy-level model overrides; `FirstMatch` without an `entry_sort`
    picks from an unspecified row order; early assignment and physical
@@ -100,7 +108,7 @@ Library (from the audit, by impact):
 
 Research:
 
-8. **Article errata** — the published article's +6pp/yr (SPY 2008–2024)
+8. **Article errata** ([#118](https://github.com/lambdaclass/options_portfolio_backtester/pull/118)) — the published article's +6pp/yr (SPY 2008–2024)
    is in-sample and its Sharpe/drawdown columns moved after the engine
    fixes; the corrected numbers are pinned in
    `tests/oracles/test_article_reproduction.py`.
