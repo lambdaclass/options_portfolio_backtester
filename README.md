@@ -7,6 +7,7 @@ Before trusting an options-overlay result, read
 [`docs/METHODOLOGY.md`](docs/METHODOLOGY.md): entry-calendar luck, dirty
 chains, budget semantics, fill rate and path accounting, each with the API
 that guards against it.
+What is in flight and still missing: [`docs/ROADMAP.md`](docs/ROADMAP.md).
 
 ## Get started
 

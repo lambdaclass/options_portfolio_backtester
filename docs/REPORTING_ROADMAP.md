@@ -1,5 +1,7 @@
 # Reporting & Tearsheet Roadmap
 
+(Part of the project [`ROADMAP.md`](ROADMAP.md).)
+
 Goal: a pyfolio-style reporting experience — one call, one self-contained
 report — built on the pieces that already exist in `analytics/`, plus the
 options-specific panels no generic library provides.
