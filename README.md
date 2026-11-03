@@ -302,3 +302,19 @@ study behind the published articles: a reproduction script, the experiments,
 and the written-up findings. Start with
 [`findings/ROBUSTNESS_REVIEW.md`](research/spitznagel_spy/findings/ROBUSTNESS_REVIEW.md).
 Further notebooks and analysis: [finance_research](https://github.com/unbalancedparentheses/finance_research).
+
+## Roadmap
+
+Work in progress, one draft PR per item (details and checklists in
+[`docs/ROADMAP.md`](docs/ROADMAP.md)):
+
+| PR | Item |
+|---|---|
+| [#111](https://github.com/lambdaclass/options_portfolio_backtester/pull/111) | Rewrite the tail-hedge review from the Friday-expiration results |
+| [#112](https://github.com/lambdaclass/options_portfolio_backtester/pull/112) | Run the pre-registered parameter landscape |
+| [#113](https://github.com/lambdaclass/options_portfolio_backtester/pull/113) | Leg relationships for spreads (same expiry, strike offsets, ratios) |
+| [#114](https://github.com/lambdaclass/options_portfolio_backtester/pull/114) | Margin for short options |
+| [#115](https://github.com/lambdaclass/options_portfolio_backtester/pull/115) | Native financing (interest inside the run) |
+| [#116](https://github.com/lambdaclass/options_portfolio_backtester/pull/116) | Risk constraints: greek units, shrink-to-fit, daily drawdown peak |
+| [#117](https://github.com/lambdaclass/options_portfolio_backtester/pull/117) | Events log, multi-strategy overrides, deterministic `FirstMatch` |
+| [#118](https://github.com/lambdaclass/options_portfolio_backtester/pull/118) | Errata for the published Spitznagel article |
